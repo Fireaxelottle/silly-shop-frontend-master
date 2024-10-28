@@ -12,12 +12,7 @@ const Shipping = () => {
     code: "",
   })
 
-  const spring = useSpring({
-    from: { opacity: 0, y: -10 },
-    to: {opacity: 1, y: 0 },
-    config: { duration: 1000 },
- }); 
-
+ 
   const handleChange = (e) => {
     const { name, value } = e.target
     setShippingInfo({ ...shippingInfo, [name]: value })
@@ -26,7 +21,7 @@ const Shipping = () => {
   <>
    <Link to="/cart" className='Shipping-link  text-white rounded-md hover:scale-75 hover:shadow-xl  p-4' ><i className="fa-solid fa-arrow-left"></i></Link>
    
-    <animated.div className='p-28 shipping ' style={{...spring}}>    
+    <div className='p-28 shipping ' >    
       <form className='flex justify-center items-center flex-col gap-8 mx-auto'>
         <h1 className='text-4xl'>Shipping</h1>
         <input
@@ -77,7 +72,7 @@ const Shipping = () => {
 
         <button type="submit">Continue</button>
       </form>
-    </animated.div>
+    </div>
   </>
   )
 }

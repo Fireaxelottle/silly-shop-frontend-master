@@ -1,72 +1,73 @@
-import React , { useState } from 'react'
-import { useSpring , animated } from 'react-spring'
-import { Link } from 'react-router-dom'
+import React, { useState } from "react";
+
+import Signup1 from "../components/Signup1";
+import Signup2 from "../components/Signup2";
+import { asyncThunkCreator } from "@reduxjs/toolkit";
 
 const Signup = () => {
+  const [page, setPage] = useState(1);
+  const [name, setName] = useState(null);
+  const [email, setEmail] = useState(null);
+  const [gender, setGender] = useState("select gender");
+  const [password, setPassword] = useState(null);
+  const [CP, setCP] = useState(null);
+  const [Photo, setPhoto] = useState(null);
 
-    const spring = useSpring({
-        from: { opacity: 0, y: -10 },
-        to: {opacity: 1, y: 0 },
-        config: { duration: 1000 },
-     }) ;  
-        
+  const AddUser = async (post) => {
+    const table = {
+      name: name,
+      email: email,
+      password: password,
+      gender: gender,
+      dob: new Date().getTimezoneOffset(),
+      photo: Photo,
+    };
+    if (password !== CP ) {
+      alert ("password not match");
+    } else {
+      try {
+        const res = await fetch("http://localhost:4000/api/v1/user/register", {
+          method: "POST",
+          body: JSON.stringify(table),
+          headers: { "Content-Type": "application/json" },
+        });
+        console.log(res)
+        alert("User Added Succesfully");
+      } catch (err) {
+        console.log(err)
+      }
+    }  
+  };
 
-     const [name, setName] = useState("");
-     const [ email, setEmail ] = useState("");
-     const [ password, setPassword ] = useState("");
-     const [ gender, setGender ] = useState("select gender");
-
-  return (
-    <animated.div className="login" style={{...spring}}>
-      <main>
-      <h2 className="heading">SIGNUP</h2>
-
-      <div>
-        <label >Name</label>
-        <input 
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}  
-        placeholder='Enter your Name'
+  switch (page) {
+    case 1:
+      return (
+        <Signup1
+          setGender={setGender}
+          setEmail={setEmail}
+          setName={setName}
+          setPage={setPage}
+          name={name}
+          email={email}
+          gender={gender}
         />
-      </div>
-
-      <div>
-        <label>Email</label>
-        <input
-          type="text"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder='Enter your Email'
+      );
+      break;
+    case 2:
+      return (
+        <Signup2
+          setCP={setCP}
+          setPassword={setPassword}
+          password={password}
+          CP={CP}
+          setPage={setPage}
+          Photo={Photo}
+          setPhoto={setPhoto}
+          AddUser={AddUser}
         />
-      </div>
-      <div>
-        <label>Password</label>
-        <input
-          type="text"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder='Enter your Password'
-        />
-      </div>
-      <div>
-        <label>Gender</label>
-        <select value={gender} onChange={(e) => setGender(e.target.value)}>
-          <option value="">Select Gender</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-        </select>
-      </div>
+      );
 
-      <div>
-        <p>Already have an account?</p>
-        <Link to="/login" className='link'>
-         <span>Log-In</span>
-        </Link>
-      </div>
-    </main>
-    </animated.div>
-  )
-}
-
-export default Signup
+    default:
+  }
+};
+export default Signup;

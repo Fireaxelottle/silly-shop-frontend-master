@@ -4,18 +4,14 @@ import { Link } from 'react-router-dom'
 
 const Login = () => {
 
-    const spring = useSpring({
-        from: { opacity: 0, y: -10 },
-        to: {opacity: 1, y: 0 },
-        config: { duration: 1000 },
-     })   
+   
         
 
      const [name, setName] = useState("");
      const [ email, setEmail ] = useState("");
 
   return (
-    <animated.div className="login" style={{...spring}}>
+    <div className="login" >
       <main>
       <h2 className="heading">LOGIN</h2>
 
@@ -46,7 +42,7 @@ const Login = () => {
         </Link>
       </div>
     </main>
-    </animated.div>
+    </div>
   )
 }
 

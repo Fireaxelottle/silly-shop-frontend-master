@@ -494,7 +494,7 @@ cursor: pointer;
   font-weight: 600;
 }
 
-.login main div:last-child {
+.login main .signLink {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -502,11 +502,11 @@ cursor: pointer;
   gap: 20px;
 } 
 
-.login main div:last-child p {
+.login main  .signLink p {
   font-weight: 600;
 }
 
-.login main div:last-child .link{
+.login main  .signLink button,a {
   width: 60%;
   padding: 10px;
   border-radius: 5px;
@@ -514,7 +514,7 @@ cursor: pointer;
   color: white;
   text-align: center;
   font-weight: 600;
- 
+  
 }
 
 /* Order */
@@ -1025,4 +1025,5 @@ cursor: pointer;
 .tosscoin div:last-of-type {
   background-image: url("./assects/images/tails.png");
   transform: rotateY(-180deg);
-}
+};
+
